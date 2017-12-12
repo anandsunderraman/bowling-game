@@ -1,7 +1,5 @@
 package org.anand.model;
 
-import java.util.Optional;
-
 /**
  * Represents the state of a Frame
  */
@@ -44,13 +42,20 @@ public class Frame {
         return score;
     }
 
+    /**
+     * Computes the score of a frame based on frames ahead
+     * @param oneFrameAhead
+     * @param twoFramesAhead
+     */
     public void computeScore(Frame oneFrameAhead, Frame twoFramesAhead) {
 
         int currentFrameScore = this.firstRoll + this.secondRoll;
 
         if (isStrike && oneFrameAhead != null) {
-            if ( oneFrameAhead.isStrike) {
 
+            //handles the case where there are consecutive strikes
+            if ( oneFrameAhead.isStrike) {
+                
                 currentFrameScore = currentFrameScore + oneFrameAhead.firstRoll;
                 if (twoFramesAhead != null) {
                     currentFrameScore = currentFrameScore + twoFramesAhead.firstRoll;

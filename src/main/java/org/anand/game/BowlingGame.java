@@ -4,9 +4,6 @@ import org.anand.model.Frame;
 
 import java.util.LinkedList;
 import java.util.ListIterator;
-import java.util.Optional;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 public class BowlingGame {
 
@@ -83,18 +80,6 @@ public class BowlingGame {
     //iterates through the frames starting from the head and computes the current score
     public int getScore() {
 
-        /*if (headFrame == null) {
-            return 0;
-        }
-
-        Optional<Frame> frameOptional = Optional.of(headFrame);
-        int score = 0;
-        while ( frameOptional.isPresent() ) {
-            Frame tempFrame = frameOptional.get();
-            score = score + tempFrame.getScore();
-            frameOptional = tempFrame.getNextFrame();
-        }*/
-
         ListIterator<Frame> frameListIterator = frameSequence.listIterator();
         Frame currentFrame = frameListIterator.hasNext() ? frameListIterator.next() : null;
         Frame oneFrameAhead = frameListIterator.hasNext() ? frameListIterator.next() : null;
@@ -145,30 +130,13 @@ public class BowlingGame {
 
         frameSequence.add(currentFrame);
 
-        /*//if the framesCompleted == 0 then set the currentFrame as head frame and previousFrame
-        if (framesCompleted == 0) {
-            headFrame = currentFrame;
-            previousFrame = currentFrame;
-        } else {
-            //set the currentFrame as the nextFrame for the previousFrame
-            previousFrame.setNextFrame(currentFrame);
-
-            //set the previousFrame as the previousFrame for the currentFrame
-            currentFrame.setPreviousFrame(previousFrame);
-
-            previousFrame = currentFrame;
-        }*/
-
         //if we had allowed for extra throws then it is time to terminate the game here
         if (allowExtraThrows) {
             isFinished = true;
             return;
         }
 
-//        framesCompleted = framesCompleted + 1;
-
         if (frameSequence.size() == maxFrameCount) {
-//        if (framesCompleted == maxFrameCount) {
             if ( currentFrame.isStrike() || currentFrame.isSpare() ) {
                 allowExtraThrows = true;
             } else {
